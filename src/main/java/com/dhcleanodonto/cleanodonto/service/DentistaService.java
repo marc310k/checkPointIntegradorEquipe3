@@ -1,19 +1,20 @@
 package com.dh.cleanodonto.cleanodonto.service;
 
-import com.dh.cleanodonto.cleanodonto.dto.DentistaDTO;
-import com.dh.cleanodonto.cleanodonto.model.Dentista;
-import com.dh.cleanodonto.cleanodonto.model.Usuario;
-import com.dh.cleanodonto.cleanodonto.repository.DentistaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.dh.cleanodonto.cleanodonto.dto.DentistaDTO;
+import com.dh.cleanodonto.cleanodonto.model.Dentista;
+import com.dh.cleanodonto.cleanodonto.repository.DentistaRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class DentistaService {
-    //INJEÇÃO DE DEPENDENCIA
+	
+	 //INJEÇÃO DE DEPENDENCIA
     @Autowired
     private DentistaRepository dentistaRepository;
 
@@ -66,4 +67,5 @@ public class DentistaService {
     public void delete(int id) {
         dentistaRepository.deleteById(id);
     }
+
 }

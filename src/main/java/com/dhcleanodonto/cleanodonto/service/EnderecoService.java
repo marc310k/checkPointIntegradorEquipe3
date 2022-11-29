@@ -1,20 +1,21 @@
 package com.dh.cleanodonto.cleanodonto.service;
 
-import com.dh.cleanodonto.cleanodonto.dto.EnderecoDTO;
-import com.dh.cleanodonto.cleanodonto.model.Endereco;
-import com.dh.cleanodonto.cleanodonto.repository.EnderecoRespository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.dh.cleanodonto.cleanodonto.dto.EnderecoDTO;
+import com.dh.cleanodonto.cleanodonto.model.Endereco;
+import com.dh.cleanodonto.cleanodonto.repository.EnderecoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class EnderecoService {
-    //INJEÇÃO DE DEPENDENCIA
+	
+	 //INJEÇÃO DE DEPENDENCIA
     @Autowired
-    private EnderecoRespository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
 
     //METODO LISTAR TUDO
     public List<EnderecoDTO> getAll() {
@@ -51,7 +52,7 @@ public class EnderecoService {
         if (optional.isPresent() == true) {
             //PEGAR O OBJETO DENTRO O OPTIONAL VINDO DO BANCO E SETAR COM O VALOR DE ENTRADA DO PARAMETRO DA METODO
             Endereco enderecoBD = optional.get();
-            enderecoBD.setLougradouro(novoEndereco.getLougradouro());
+            enderecoBD.setLogradouro(novoEndereco.getLogradouro());
             enderecoBD.setNumero(novoEndereco.getNumero());
             enderecoBD.setBairro(novoEndereco.getBairro());
             enderecoBD.setCidade(novoEndereco.getCidade());
@@ -66,4 +67,5 @@ public class EnderecoService {
         public void delete(int id) {
             enderecoRepository.deleteById(id);
         }
-    }
+
+}

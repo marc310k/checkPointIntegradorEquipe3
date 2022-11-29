@@ -1,25 +1,28 @@
 package com.dh.cleanodonto.cleanodonto.service;
 
-import com.dh.cleanodonto.cleanodonto.dto.ConsultaDTO;
-import com.dh.cleanodonto.cleanodonto.model.Consulta;
-import com.dh.cleanodonto.cleanodonto.repository.ConsultaRespository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dh.cleanodonto.cleanodonto.dto.ConsultaDTO;
+import com.dh.cleanodonto.cleanodonto.model.Consulta;
+import com.dh.cleanodonto.cleanodonto.repository.ConsultaRepository;
+
 @Service
 public class ConsultaService {
-    //INJEÇÃO DE DEPENDENCIA
+	
+	  //INJEÇÃO DE DEPENDENCIA
     @Autowired
-    private ConsultaRespository consultaRespository;
+    private ConsultaRepository consultaRepository;
 
     //METODO LISTAR TUDO
     public List<ConsultaDTO> getAll(){
 
-        List<Consulta> lista = consultaRespository.findAll();
+        List<Consulta> lista = consultaRepository.findAll();
         List<ConsultaDTO> listaDTO = new ArrayList<>();
         for (Consulta consulta : lista) {
             listaDTO.add(consulta.toDTO()); //CONVERSOR ARRAY PARA STRING
@@ -29,20 +32,20 @@ public class ConsultaService {
     }
 
     public ConsultaDTO getOne(int id) {
-        Optional<Consulta> optional = consultaRespository.findById(id);
+        Optional<Consulta> optional = consultaRepository.findById(id);
         Consulta consulta = optional.orElse( new Consulta());
         return consulta.toDTO();
     }
 
     public ConsultaDTO save(Consulta consulta) {
-        return consultaRespository.save(consulta).toDTO();
+        return consultaRepository.save(consulta).toDTO();
     }
 
 
     public ConsultaDTO update(int id, Consulta novoConsulta) {
 
         //VERIFICAR SE O REGISTRO EXISTE
-        Optional<Consulta> optional = consultaRespository.findById(id);
+        Optional<Consulta> optional = consultaRepository.findById(id);
 
         //SE EXISTIR
         if(optional.isPresent() == true) {
@@ -52,7 +55,7 @@ public class ConsultaService {
             consultaBD.setPaciente(novoConsulta.getPaciente());
             consultaBD.setDentista(novoConsulta.getDentista());
 
-            return consultaRespository.save(consultaBD).toDTO();
+            return consultaRepository.save(consultaBD).toDTO();
         }
 
         else {
@@ -61,7 +64,8 @@ public class ConsultaService {
     }
 
     public void delete(int id) {
-        consultaRespository.deleteById(id);
+    	consultaRepository.deleteById(id);
     }
+
 
 }

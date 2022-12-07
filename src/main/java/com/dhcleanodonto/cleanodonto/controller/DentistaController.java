@@ -2,6 +2,8 @@ package com.dh.cleanodonto.cleanodonto.controller;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +18,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dh.cleanodonto.cleanodonto.constante.Messages;
 import com.dh.cleanodonto.cleanodonto.dto.DentistaDTO;
+import com.dh.cleanodonto.cleanodonto.model.Dentista;
 import com.dh.cleanodonto.cleanodonto.service.DentistaService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import javax.validation.Valid;
 
 
 
-//@Tag(name= Messages.SWAGGER_TAG_USUARIO_ENDPOINT ) //RECURSO DO SWAGGER PARA MODIFICAÇÕES NOS NOMES DA API
-@RestController //verbos das requisição https
+@Tag(name= Messages.SWAGGER_TAG_DENTISTA_ENDPOINT ) //RECURSO DO SWAGGER PARA MODIFICAÇÕES NOS NOMES DA API
+@RestController // VERBOS DAS REQUISICAO HTTPS 
 @RequestMapping("dentista")
-@CrossOrigin(origins = "")//não esquecer de preencher
+@CrossOrigin(origins = "") // NÃO ESQUECER DE PREENCHER 
 public class DentistaController {
 	
 	@Autowired
@@ -50,10 +55,13 @@ public class DentistaController {
 
     @Operation(description = Messages.SWAGGER_INSERT)
     @PostMapping("")
-    public ResponseEntity<DentistaDTO> save(@Valid @RequestBody DentistaDTO dentista)	{
-        return ResponseEntity.status(HttpStatus.OK).body(dentistaService.save(dentista.toEntity()));
+    public ResponseEntity<DentistaDTO> save(@Valid @RequestBody DentistaDTO dentistaDTO)	{
+    	Dentista dentista = dentistaDTO.toEntity();
+    	dentista.getUsuario().setTipoPessoa("Dentista");
+        return ResponseEntity.status(HttpStatus.CREATED).body(dentistaService.save(dentista));
 
     }
+
 
 
     @Operation(description = Messages.SWAGGER_UPDATE)
@@ -70,5 +78,4 @@ public class DentistaController {
         dentistaService.delete(id);
 
     }
-
 }

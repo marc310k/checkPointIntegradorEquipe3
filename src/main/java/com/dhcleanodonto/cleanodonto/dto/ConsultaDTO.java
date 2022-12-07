@@ -1,8 +1,8 @@
 package com.dh.cleanodonto.cleanodonto.dto;
 
-import java.time.LocalDate;
-import org.modelmapper.ModelMapper;
 
+
+import java.time.LocalDate;
 import com.dh.cleanodonto.cleanodonto.model.Consulta;
 import com.dh.cleanodonto.cleanodonto.model.Dentista;
 import com.dh.cleanodonto.cleanodonto.model.Paciente;
@@ -11,18 +11,14 @@ import com.dh.cleanodonto.cleanodonto.model.Paciente;
 
 
 
+
 public class ConsultaDTO {
-    private Integer id;
+
     private LocalDate dataConsulta;
-    private Paciente paciente;
-    private Dentista dentista;
+    private PacienteDTO paciente;
+    private DentistaDTO dentista;
 
     
-    
-    
-
-
-
 
 	public ConsultaDTO() {
 		super();
@@ -31,32 +27,11 @@ public class ConsultaDTO {
 
 
     
-    public ConsultaDTO(Integer id, LocalDate dataConsulta,
-			Paciente paciente, Dentista dentista) {
-		super();
-		this.id = id;
+    public ConsultaDTO(LocalDate dataConsulta, PacienteDTO paciente, DentistaDTO dentista) {
 		this.dataConsulta = dataConsulta;
 		this.paciente = paciente;
 		this.dentista = dentista;
 	}
-
-
-
-
-
-	public Integer getId() {
-		return id;
-	}
-
-
-
-
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
 
 
 	public LocalDate getDataConsulta() {
@@ -71,54 +46,42 @@ public class ConsultaDTO {
 	}
 
 
-
-
-
-	public Paciente getPaciente() {
+	public PacienteDTO getPaciente() {
 		return paciente;
 	}
 
 
 
 
-
-	public void setPaciente(Paciente paciente) {
+	public void setPaciente(PacienteDTO paciente) {
 		this.paciente = paciente;
 	}
 
 
 
 
-
-	public Dentista getDentista() {
+	public DentistaDTO getDentista() {
 		return dentista;
 	}
 
 
 
 
-
-
-	public void setDentista(Dentista dentista) {
+	public void setDentista(DentistaDTO dentista) {
 		this.dentista = dentista;
 	}
 
-
-
-
-
-
-
-
+	
+	
 
 
 
 	public Consulta toEntity() {
 
-        ModelMapper mapper = new ModelMapper();
-
-        return mapper.map(this, Consulta.class);
-    }
-
-
+			Paciente paciente = this.paciente.toEntity();
+			Dentista dentista = this.dentista.toEntity();
+			Consulta consulta = new Consulta( null, dataConsulta,paciente, dentista);
+			return consulta;
+			
+	    }
 }

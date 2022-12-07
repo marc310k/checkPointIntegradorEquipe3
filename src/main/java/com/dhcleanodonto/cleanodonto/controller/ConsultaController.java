@@ -1,6 +1,8 @@
 package com.dh.cleanodonto.cleanodonto.controller;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dh.cleanodonto.cleanodonto.constante.Messages;
+import com.dh.cleanodonto.cleanodonto.dto.ConfirmaConsultaDTO;
+import com.dh.cleanodonto.cleanodonto.dto.ConsultaCadastroDTO;
 import com.dh.cleanodonto.cleanodonto.dto.ConsultaDTO;
 import com.dh.cleanodonto.cleanodonto.service.ConsultaService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import javax.validation.Valid;
 
 
-//@Tag(name= Messages.SWAGGER_TAG_USUARIO_ENDPOINT ) //RECURSO DO SWAGGER PARA MODIFICAÇÕES NOS NOMES DA API
-@RestController //verbos das requisição https
+@Tag(name= Messages.SWAGGER_TAG_CONSULTA_ENDEPOINT ) //RECURSO DO SWAGGER PARA MODIFICAÇÕES NOS NOMES DA API
+@RestController // VERBOS DAS REQUISICAO HTTPS 
 @RequestMapping("consulta")
-@CrossOrigin(origins = "")//não esquecer de preencher
+@CrossOrigin(origins = "") // NÃO ESQUECER DE PREENCHER 
 public class ConsultaController {
 
 	
@@ -49,8 +55,8 @@ public class ConsultaController {
 
 	    @Operation(description = Messages.SWAGGER_INSERT)
 	    @PostMapping("")
-	    public ResponseEntity<ConsultaDTO> save(@Valid @RequestBody ConsultaDTO consulta)	{
-	        return ResponseEntity.status(HttpStatus.OK).body(consultaService.save(consulta.toEntity()));
+	    public ResponseEntity<ConfirmaConsultaDTO> save(@Valid @RequestBody ConsultaCadastroDTO consulta)	{
+	        return ResponseEntity.status(HttpStatus.OK).body(consultaService.save(consulta.getDataConsulta(),consulta.getIdPaciente(), consulta.getIdDentista()));
 
 	    }
 
@@ -70,5 +76,4 @@ public class ConsultaController {
 
 
 	    }
-	
 }
